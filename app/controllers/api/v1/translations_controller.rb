@@ -22,7 +22,7 @@ class Api::V1::TranslationsController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def translation_params
-    params.require(:translation).permit(:id, :title)
+    params.require(:translation).permit(:id, :title, :result)
   end
 
 end

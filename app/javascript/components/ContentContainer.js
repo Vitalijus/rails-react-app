@@ -12,6 +12,7 @@ constructor(props) {
 
   this.state = {
     title: '',
+    result: '',
     translations: []
   }
 
