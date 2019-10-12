@@ -1,48 +1,89 @@
 import React, {Component} from 'react'
 import Header from './Header'
 import NewTranslation from './NewTranslation'
+import Translations from './Translations'
 import axios from 'axios'
 import update from 'immutability-helper'
 
 class ContentContainer extends Component {
 
-  constructor(props) {
-    super(props)
+constructor(props) {
+  super(props)
 
-    this.state = {
-      title: '',
-      translations: []
+  this.state = {
+    title: '',
+    translations: []
+  }
+
+  this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  this.handleNameChange = this.handleNameChange.bind(this)
+  this.handleUpdate = this.handleUpdate.bind(this)
+  this.updateTranslation = this.updateTranslation.bind(this)
+  this.handleDelete = this.handleDelete.bind(this)
+}
+
+handleUpdate(translation){
+  fetch(`/api/v1/translations/${translation.id}`,
+  {
+    method: 'PUT',
+    body: JSON.stringify({translation: translation}),
+    headers: {
+      'Content-Type': 'application/json'
     }
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.handleNameChange = this.handleNameChange.bind(this)
-  }
-
-  handleNameChange(e) {
-    this.setState({ title: e.target.value });
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault()
-    e.target.reset();
-
-    let title = this.state.title
-
-    axios.post('/api/v1/translations', {
-      title: title
+  }).then((response) => {
+      this.updateTranslation(translation)
     })
-    .then( (response) => {
-      const translations = update(this.state.translations, {
-        $splice: [[0, 0, response.data]]
-      })
-      this.setState({
-        translations: translations
-      })
+}
+
+updateTranslation(translation){
+  let newTransations = this.state.translations.filter((f) => f.id !== translation.id)
+  newTransations.unshift(translation)
+  this.setState({
+    translations: newTransations
+  })
+}
+
+handleDelete(id) {
+  axios.delete(`/api/v1/translations/${id}`)
+  .then((response) => {
+    this.setState({
+      translations: this.state.translations.filter((translation) => translation.id !== id)
     })
-    .catch( (response) => {
-      debugger
+  })
+}
+
+handleNameChange(e) {
+  this.setState({ title: e.target.value });
+}
+
+handleFormSubmit(e) {
+  e.preventDefault()
+  e.target.reset();
+
+  let title = this.state.title
+
+  axios.post('/api/v1/translations', {
+    title: title
+  })
+  .then( (response) => {
+    const translations = update(this.state.translations, {
+      $splice: [[0, 0, response.data]]
     })
-  }
+    this.setState({
+      translations: translations
+    })
+  })
+  .catch( (response) => {
+    debugger
+  })
+}
+
+componentDidMount(){
+  axios
+  .get('/api/v1/translations.json')
+  .then(data => this.setState({ translations: data.data }))
+  .catch(error => console.log(error))
+}
 
 render() {
     return(
@@ -52,6 +93,12 @@ render() {
         <NewTranslation
           handleNameChange={this.handleNameChange}
           handleFormSubmit={this.handleFormSubmit}
+        />
+
+        <Translations
+          translations={this.state.translations}
+          handleDelete={this.handleDelete}
+          handleUpdate = {this.handleUpdate}
         />
       </div>
     )

@@ -9,7 +9,7 @@ class NewTranslation extends Component {
         <form onSubmit={this.props.handleFormSubmit}>
           <div className="form-group">
             <label>Type in words:</label><br/>
-            <input onChange={this.props.handleNameChange} autoComplete="off" type="text" name="title" placeholder="e.g. open microphone" value={this.props.title} className="name-field"/>
+            <input onChange={this.props.handleNameChange} type="text" name="title" placeholder="e.g. open microphone" value={this.props.title} className="name-field"/>
           </div>
 
           <div className="action-btn">
