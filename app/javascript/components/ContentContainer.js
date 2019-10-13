@@ -11,9 +11,9 @@ constructor(props) {
   super(props)
 
   this.state = {
+    translations: [],
     title: '',
-    result: '',
-    translations: []
+    result: ''
   }
 
   this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -24,6 +24,7 @@ constructor(props) {
 }
 
 handleUpdate(translation){
+  console.log(translation)
   fetch(`/api/v1/translations/${translation.id}`,
   {
     method: 'PUT',
@@ -39,6 +40,7 @@ handleUpdate(translation){
 updateTranslation(translation){
   let newTransations = this.state.translations.filter((f) => f.id !== translation.id)
   newTransations.unshift(translation)
+  console.log(newTransations)
   this.setState({
     translations: newTransations
   })
@@ -58,9 +60,6 @@ handleNameChange(e) {
 }
 
 handleFormSubmit(e) {
-  e.preventDefault()
-  e.target.reset();
-
   let title = this.state.title
 
   axios.post('/api/v1/translations', {
@@ -77,6 +76,10 @@ handleFormSubmit(e) {
   .catch( (response) => {
     debugger
   })
+
+  e.preventDefault()
+  e.target.reset();
+  this.setState({title: ''})
 }
 
 componentDidMount(){
