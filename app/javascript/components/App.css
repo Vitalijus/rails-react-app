@@ -22,20 +22,20 @@ body {
   display: table;
 } */
 
-.logo {
+/* .logo {
   padding: 20px;
   display: table-cell;
   vertical-align: middle;
   display: inline-block;
-}
+} */
 
-.new-translation-container {
+/* .new-translation-container {
   max-width: 500px;
   margin: 0 auto;
   margin-top: 40px;
   border: 1px solid #051830;
   border-radius: 3px;
-}
+} */
 
 .new-translation-container h3 {
   padding: 20px;

@@ -93,7 +93,7 @@ componentDidMount(){
 
 render() {
     return(
-      <div>
+      <div >
         <Header/>
 
         <NewTranslation
