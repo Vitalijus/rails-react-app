@@ -86,7 +86,9 @@ componentDidMount(){
   axios
   .get('/api/v1/translations.json')
   .then(data => this.setState({ translations: data.data }))
-  .catch(error => console.log(error))
+  .catch((error) => {
+        console.log(error);
+      });
 }
 
 render() {

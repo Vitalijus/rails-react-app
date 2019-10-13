@@ -15,9 +15,18 @@ const Translations = (props) => {
    })
 
   return(
-    <div>
+    <div className='translation-list-container'>
       <h3>All Translations</h3>
-      <div>{translations}</div>
+
+      <ul className="list-header">
+        <li>ID</li>
+        <li>Title</li>
+        <li>Result</li>
+        <li></li>
+        <li></li>
+      </ul>
+
+      {translations}
     </div>
   )
 }
