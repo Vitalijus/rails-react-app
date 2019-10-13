@@ -2,15 +2,8 @@ import React, {Component} from 'react'
 
 class NewTranslation extends Component {
   render(){
-    const newTranslationContainer = {
-      maxwidth: '500px',
-      margin: '40px',
-      border: '1px solid #051830',
-      borderRadius: '3px',
-    };
-
     return(
-      <div style={newTranslationContainer} className="new-translation-container">
+      <div className="new-translation-container">
         <h3>New Translation</h3>
 
         <form onSubmit={this.props.handleFormSubmit}>

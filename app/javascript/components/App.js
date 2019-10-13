@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import ContentContainer from './ContentContainer'
-import './App.css';
 import axios from 'axios'
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content
