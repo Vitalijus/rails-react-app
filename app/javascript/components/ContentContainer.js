@@ -87,8 +87,8 @@ componentDidMount(){
   .get('/api/v1/translations.json')
   .then(data => this.setState({ translations: data.data }))
   .catch((error) => {
-        console.log(error);
-      });
+    console.log(error);
+  });
 }
 
 render() {
